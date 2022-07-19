@@ -6,6 +6,7 @@ use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
@@ -18,6 +19,7 @@ class Categorie
     #[ORM\Column(type: 'string', length: 100)]
     private $name;
 
+    #[Gedmo\Slug(fields: ["name"])]
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
@@ -58,12 +60,7 @@ class Categorie
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
 
-        return $this;
-    }
 
     public function getParent(): ?self
     {
